@@ -1,3 +1,4 @@
+from pytest import *
 
 # forward list
 class fwlsit_node:
@@ -125,6 +126,48 @@ class fwlsit_node:
         if (prev.next != None):
             prev.next = prev.next.next
 
+# ----------------------------- TESTS -----------------------------
+
+def test_find():
+    top = fwlsit_node(5)
+    fwlsit_node.fill_range(top, 6, 10)
+    assert fwlsit_node.find(top, 7).val == 7
+
+def test_del():
+    top = fwlsit_node(5)
+    fwlsit_node.fill_range(top, 6, 10)
+    fwlsit_node.del_at(top, 2)
+    assert fwlsit_node.find(top, 7) == None
+
+def test_del_on_end_size():
+    top = fwlsit_node(5)
+    fwlsit_node.fill_range(top, 6, 10)
+    old_sz = fwlsit_node.size(top)
+    fwlsit_node.del_at(top, fwlsit_node.size(top)-1)
+    assert fwlsit_node.size(top) == (old_sz-1)
+
+def test_del_on_start():
+    top = fwlsit_node(5)
+    fwlsit_node.fill_range(top, 6, 10)
+    fwlsit_node.del_at(top, 1)
+    fwlsit_node.dump(top)
+    assert top.next.val == 7
+
+def test_merge_size():
+    top1 = fwlsit_node(5)
+    fwlsit_node.fill_range(top1, 6, 10)
+    fwlsit_node.dump(top1)
+
+    top2 = fwlsit_node(-15)
+    fwlsit_node.fill_range(top2, -14, -10)
+    fwlsit_node.dump(top2)
+
+    sum_sz = fwlsit_node.size(top1) + fwlsit_node.size(top2)
+
+    fwlsit_node.merge_copy(top1, top2)
+    assert fwlsit_node.size(top1) == sum_sz
+
+"""
 top1 = fwlsit_node(5)
 fwlsit_node.fill_range(top1, 6, 10)
 fwlsit_node.dump(top1)
@@ -143,6 +186,7 @@ fwlsit_node.dump(top1)
 
 fwlsit_node.del_at(top1, 1)
 fwlsit_node.dump(top1)
+"""
 
 #print(fwlsit_node.get_at(top1, fwlsit_node.size(top1)-1).val)
 
