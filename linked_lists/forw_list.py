@@ -126,6 +126,17 @@ class fwlsit_node:
         if (prev.next != None):
             prev.next = prev.next.next
 
+    def deep_copy(cur):
+        t =fwlsit_node(cur.val)
+        _head = t
+        _r = cur.next
+        while(_r != None):
+            t.next = fwlsit_node(_r.val)
+            _r = _r.next
+            t = t.next
+        
+        return _head
+
 # ----------------------------- TESTS -----------------------------
 
 def test_find():
@@ -166,6 +177,15 @@ def test_merge_size():
 
     fwlsit_node.merge_copy(top1, top2)
     assert fwlsit_node.size(top1) == sum_sz
+
+def test_copy_deep():
+    top1 = fwlsit_node(5)
+    fwlsit_node.fill_range(top1, 6, 10)
+    
+    cp = fwlsit_node.deep_copy(top1)
+
+    assert fwlsit_node.size(top1) == fwlsit_node.size(cp) 
+
 
 """
 top1 = fwlsit_node(5)
