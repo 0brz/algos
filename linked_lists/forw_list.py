@@ -1,7 +1,9 @@
 from pytest import *
 
-# forward list
 class fwlsit_node:
+    """
+    Forward list
+    """
     def __init__(self, val, next=None):
         self.val = val
         self.next = next
