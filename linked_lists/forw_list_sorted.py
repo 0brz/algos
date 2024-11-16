@@ -97,26 +97,19 @@ class fwlist_sorted:
     def __str__(self):
         return str(self.top)
 
-"""
-
-flow_traits
-    cmpr_func
-    name
-
-fwlist_shared
-    flows list<top, flow_traits>
-    ins()
-    del_at()
-    get_at()
-
-"""
-
 class fwlist_flow_traits:
     def __init__(self, cmpr_func, flow_name):
         self.cmpr_func = cmpr_func
         self.flow_name = flow_name
 
+
 class fwlist_shared_valcopy:
+    """
+    list which contains many flows with different order\n
+    nodes are custom user type\n
+    valcopy - value will be copied when inserting\n
+    user can get some flow by flow_name
+    """
     def __init__(self, flows_traits_list=[]):
         if (len(flows_traits_list) == 0):
             raise Exception("no one traits provided")
