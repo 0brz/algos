@@ -32,10 +32,11 @@ class ndarray:
     d1,d2,d3...
     """
     
-    def __init__(self, bounds=[]):
+    def __init__(self, bounds=[], default_value=None):
         self.__dim_bounds = bounds    
-    
-    def indexOf(self, index=[]):
+        self.__data = [default_value for _ in range(self.size())]
+
+    def _get_index(self, index=[]):
         "ex for 3dim(x,y,z): x(d2, d3) + y(d3) + z"
         calc_index = 0
         j_mul = 1
@@ -49,3 +50,57 @@ class ndarray:
 
     def size(self):
         return prod(self.__dim_bounds)
+    
+    def __setitem__(self, nd_index, value):
+        row_index = self._get_index(nd_index)
+        if (row_index >= self.size()):
+            raise Exception("index outside of ndArray")
+        self.__data[row_index] = value
+
+    def __getitem__(self, nd_index):
+        row_index = self._get_index(nd_index)
+        if (row_index >= self.size()):
+            raise Exception("index outside of ndArray")
+        return self.__data[row_index]
+
+    def moda(self):
+        t = {}
+
+        max_count = -1
+        max_elem = -1
+
+        for i in range(0, self.size()):
+            it = self.__data[i]
+
+            if (it == None):
+                continue
+
+            v = t.get(it)
+            if (v == None):
+                t[self.__data[i]] = 1
+                v = 1
+            else: v += 1
+        
+            if (v > max_count):
+                max_count = v
+                max_elem = it
+
+        if (len(t) == 0):
+            return None
+        
+        return max_elem
+
+    def median(self):
+        sz = self.size()
+        if (sz%2==0):
+            return self.__data[int(sz/2)]
+        else:
+            return self.__data[int(sz/2 + 1)]
+
+d = ndarray([3,3,3], None)
+d[2,2,2] = 9
+d[2,2,1] = 5
+d[2,2,0] = 5
+print(d[2,2,2])
+print(d.moda())
+print(d.median())
