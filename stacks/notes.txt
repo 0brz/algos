@@ -1,0 +1,11 @@
+skip:
+-linked list stack
+-array stack
+
+todo:
+    double stack
+
+trains_depo_sort
+hanoe_tower
+sort_stack_insert
+sort_stack_selection
