@@ -1,6 +1,3 @@
-fwlist_sorted_node
-fwlist_mt_node
-dlist_mt_node
 
-ll/ins_sort
+ll/has_loop_rabbit_turtle()
 ll/selection_sort
