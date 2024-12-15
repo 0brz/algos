@@ -44,7 +44,7 @@ class basic_stack:
 
         return ls
 
-    def sort(self):
+    def sort_by_queue(self):
         q = basic_stack()
         r = basic_stack()
         count = self.size()
@@ -68,6 +68,27 @@ class basic_stack:
         
         return r
 
+    def sort_by_min(self):
+        t = basic_stack()
+        q = self
+        ls = []
+        while(q.top() != None):
+            min = q.top()
+
+            while(q.top() != None):
+                cur = q.pop()
+                t.push(cur)
+                if (cur < min):
+                    min = cur
+
+            # there we have min elem in Q
+            ls.append(min)
+            while(t.top() != None):
+                cur_el = t.pop()
+                if (cur_el != min):
+                    q.push(cur_el)
+
+        return ls
 
 
 t = basic_stack()
@@ -79,5 +100,5 @@ t.push(7)
 t.push(2)
 
 
-st = t.sort()
-print(st.as_list())
+#st = t.sort()
+print(t.sort_by_min())
