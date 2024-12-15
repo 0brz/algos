@@ -72,6 +72,8 @@ class queue_ringed:
         return ls
 
     def first(self):
+        if (self.__sz == 0):
+            return None
         return self.__data[self.__begin]
 
     def last(self):
@@ -87,17 +89,44 @@ class queue_ringed:
     def size(self):
         return self.__sz
 
-t = queue_ringed(3)
-t.enqueue(1)
-t.enqueue(2)
-t.enqueue(3)
-t.enqueue(4)
+    def circle_pass(self, func):
+        for _ in range(self.size()):
+            el = self.dequeue()
+            func(el)
+            self.enqueue(el)
+
+    def sort_by_min(self):
+        bigest_queue = queue_ringed(self.size())
+        t = queue_ringed(self.size())
+        for _ in range(self.size()):
+            el = self.dequeue()
+            t.enqueue(el)
+            # go tru existsing queue
+            for _ in range(t.size()):
+                inq = t.dequeue()
+                if (inq == None or
+                    inq <= el):
+                    t.enqueue(inq)
+                else:
+                    bigest_queue.enqueue(inq)
+
+            # go tru temporary queue for biggest elems
+            for _ in range(bigest_queue.size()):
+                t.enqueue(bigest_queue.dequeue())  
+        return t
+
+
+
+t = queue_ringed(10)
 t.enqueue(5)
+t.enqueue(4)
+t.enqueue(3)
+t.enqueue(2)
+t.enqueue(1)
 
-print(t.resize(1))
-t.enqueue(6)
-print(t.as_list())
+#t.circle_pass(lambda x: print(x))
 
+print(t.sort_by_min().as_list())
 """
 #print(t.get())
 print(t.last())
