@@ -14,9 +14,9 @@ def __bsImpl(arr, l, r, target):
     
     return -1
 
-def binsearch(sortedArray, target):
+def bin_search(sortedArray, target):
     return __bsImpl(sortedArray, 0, len(sortedArray)-1, target)
 
 
-print(binsearch([1,2,3,4,45,66,77,88,91,91,92], 1))
-print(binsearch([1,2,3,4,45,66,77,88,91,91,92], 92))
+print(bin_search([1,2,3,4,45,66,77,88,91,91,92], 1))
+print(bin_search([1,2,3,4,45,66,77,88,91,91,92], 92))
